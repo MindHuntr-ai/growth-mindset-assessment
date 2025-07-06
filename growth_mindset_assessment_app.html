@@ -1,0 +1,999 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Growth Mindset Leadership Assessment - GCAA</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #2c3e50, #3498db);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .logo-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .logo {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+        
+        .header h1 {
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+        
+        .header p {
+            font-size: 16px;
+            opacity: 0.9;
+        }
+        
+        .content {
+            padding: 40px;
+        }
+        
+        .question {
+            margin-bottom: 25px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            border-left: 4px solid #3498db;
+        }
+        
+        .question-text {
+            font-size: 16px;
+            margin-bottom: 15px;
+            font-weight: 500;
+            color: #2c3e50;
+        }
+        
+        .rating-scale {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .scale-label {
+            font-size: 12px;
+            color: #7f8c8d;
+            text-align: center;
+            flex: 1;
+        }
+        
+        .rating-options {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex: 3;
+        }
+        
+        .rating-option {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+        }
+        
+        .rating-option input[type="radio"] {
+            display: none;
+        }
+        
+        .rating-button {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #ecf0f1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: #7f8c8d;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+        
+        .rating-option:hover .rating-button {
+            background: #3498db;
+            color: white;
+            transform: scale(1.1);
+        }
+        
+        .rating-option input[type="radio"]:checked + .rating-button {
+            background: #2ecc71;
+            color: white;
+            border-color: #27ae60;
+        }
+        
+        .submit-section {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 2px solid #ecf0f1;
+        }
+        
+        .submit-btn {
+            background: linear-gradient(135deg, #2ecc71, #27ae60);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+        
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(46, 204, 113, 0.3);
+        }
+        
+        .submit-btn:disabled {
+            background: #95a5a6;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        
+        .results {
+            display: none;
+            padding: 40px;
+            text-align: center;
+        }
+        
+        .score-display {
+            font-size: 48px;
+            font-weight: bold;
+            color: #2ecc71;
+            margin: 20px 0;
+        }
+        
+        .result-category {
+            font-size: 24px;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+        
+        .recommendations {
+            text-align: left;
+            background: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            margin-top: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .recommendations h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+        }
+        
+        .recommendations ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .recommendations li {
+            padding: 8px 0;
+            padding-left: 25px;
+            position: relative;
+        }
+        
+        .recommendations li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #2ecc71;
+            font-weight: bold;
+        }
+        
+        .action-buttons {
+            margin-top: 30px;
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .action-btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .download-btn {
+            background: #3498db;
+            color: white;
+        }
+        
+        .download-btn:hover {
+            background: #2980b9;
+            transform: translateY(-2px);
+        }
+        
+        .retake-btn {
+            background: #95a5a6;
+            color: white;
+        }
+        
+        .retake-btn:hover {
+            background: #7f8c8d;
+            transform: translateY(-2px);
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 6px;
+            background: #ecf0f1;
+            border-radius: 3px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #3498db, #2ecc71);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                margin: 10px;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+            
+            .rating-scale {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .scale-label {
+                order: 2;
+            }
+            
+            .rating-options {
+                order: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo-section">
+                <div class="logo">GENERAL CIVIL AVIATION AUTHORITY</div>
+                <div class="logo">United Arab Emirates</div>
+            </div>
+            <h1>Growth Mindset Leadership Assessment</h1>
+            <p>Discover your leadership mindset and unlock your growth potential</p>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+        </div>
+        
+        <div class="content" id="assessmentForm">
+            <form id="mindsetForm">
+                <div class="question">
+                    <div class="question-text">1. Intelligence is something you are born with and can't change</div>
+                    <div class="rating-scale">
+                        <div class="scale-label">Strongly<br>Disagree</div>
+                        <div class="rating-options">
+                            <label class="rating-option">
+                                <input type="radio" name="q1" value="1" required>
+                                <div class="rating-button">1</div>
+                            </label>
+                            <label class="rating-option">
+                                <input type="radio" name="q1" value="2">
+                                <div class="rating-button">2</div>
+                            </label>
+                            <label class="rating-option">
+                                <input type="radio" name="q1" value="3">
+                                <div class="rating-button">3</div>
+                            </label>
+                            <label class="rating-option">
+                                <input type="radio" name="q1" value="4">
+                                <div class="rating-button">4</div>
+                            </label>
+                            <label class="rating-option">
+                                <input type="radio" name="q1" value="5">
+                                <div class="rating-button">5</div>
+                            </label>
+                        </div>
+                        <div class="scale-label">Strongly<br>Agree</div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-text">2. You can substantially change how intelligent you are</div>
+                    <div class="rating-scale">
+                        <div class="scale-label">Strongly<br>Disagree</div>
+                        <div class="rating-options">
+                            <label class="rating-option">
+                                <input type="radio" name="q2" value="1" required>
+                                <div class="rating-button">1</div>
+                            </label>
+                            <label class="rating-option">
+                                <input type="radio" name="q2" value="2">
+                                <div class="rating-button">2</div>
+                            </label>
+                            <label class="rating-option">
+                                <input type="radio" name="q2" value="3">
+                                <div class="rating-button">3</div>
+                            </label>
+                            <label class="rating-option">
+                                <input type="radio" name="q2" value="4">
+                                <div class="rating-button">4</div>
+                            </label>
+                            <label class="rating-option">
+                                <input type="radio" name="q2" value="5">
+                                <div class="rating-button">5</div>
+                            </label>
+                        </div>
+                        <div class="scale-label">Strongly<br>Agree</div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-text">3. The harder you work at something, the better you will get at it</div>
+                    <div class="rating-scale">
+                        <div class="scale-label">Strongly<br>Disagree</div>
+                        <div class="rating-options">
+                            <label class="rating-option">
+                                <input type="radio" name="q3" value="1" required>
+                                <div class="rating-button">1</div>
+                            </label>
+                            <label class="rating-option">
+                                <input type="radio" name="q3" value="2">
+                                <div class="rating-button">2</div>
+                            </label>
+                            <label class="rating-option">
+                                <input type="radio" name="q3" value="3">
+                                <div class="rating-button">3</div>
+                            </label>
+                            <label class="rating-option">
+                                <input type="radio" name="q3" value="4">
+                                <div class="rating-button">4</div>
+                            </label>
+                            <label class="rating-option">
+                                <input type="radio" name="q3" value="5">
+                                <div class="rating-button">5</div>
+                            </label>
+                        </div>
+                        <div class="scale-label">Strongly<br>Agree</div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-text">4. I actively seek feedback, especially on my weaknesses</div>
+                    <div class="rating-scale">
+                        <div class="scale-label">Strongly<br>Disagree</div>
+                        <div class="rating-options">
+                            <label class="rating-option">
+                                <input type="radio" name="q4" value="1" required>
+                                <div class="rating-button">1</div>
+                            </label>
+                            <label class="rating-option">
+                                <input type="radio" name="q4" value="2">
+                                <div class="rating-button">2</div>
+                            </label>
+                            <label class="rating-option">
+                                <input type="radio" name="q4" value="3">
+                                <div class="rating-button">3</div>
+                            </label>
+                            <label class="rating-option">
+                                <input type="radio" name="q4" value="4">
+                                <div class="rating-button">4</div>
+                            </label>
+                            <label class="rating-option">
+                                <input type="radio" name="q4" value="5">
+                                <div class="rating-button">5</div>
+                            </label>
+                        </div>
+                        <div class="scale-label">Strongly<br>Agree</div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-text">5. Trying new things is stressful for me, so I avoid them</div>
+                    <div class="rating-scale">
+                        <div class="scale-label">Strongly<br>Disagree</div>
+                        <div class="rating-options">
+                            <label class="rating-option">
+                                <input type="radio" name="q5" value="1" required>
+                                <div class="rating-button">1</div>
+                            </label>
+                            <label class="rating-option">
+                                <input type="radio" name="q5" value="2">
+                                <div class="rating-button">2</div>
+                            </label>
+                            <label class="rating-option">
+                                <input type="radio" name="q5" value="3">
+                                <div class="rating-button">3</div>
+                            </label>
+                            <label class="rating-option">
+                                <input type="radio" name="q5" value="4">
+                                <div class="rating-button">4</div>
+                            </label>
+                            <label class="rating-option">
+                                <input type="radio" name="q5" value="5">
+                                <div class="rating-button">5</div>
+                            </label>
+                        </div>
+                        <div class="scale-label">Strongly<br>Agree</div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-text">6. I share my own failures and learnings openly with my team</div>
+                    <div class="rating-scale">
+                        <div class="scale-label">Strongly<br>Disagree</div>
+                        <div class="rating-options">
+                            <label class="rating-option">
+                                <input type="radio" name="q6" value="1" required>
+                                <div class="rating-button">1</div>
+                            </label>
+                            <label class="rating-option">
+                                <input type="radio" name="q6" value="2">
+                                <div class="rating-button">2</div>
+                            </label>
+                            <label class="rating-option">
+                                <input type="radio" name="q6" value="3">
+                                <div class="rating-button">3</div>
+                            </label>
+                            <label class="rating-option">
+                                <input type="radio" name="q6" value="4">
+                                <div class="rating-button">4</div>
+                            </label>
+                            <label class="rating-option">
+                                <input type="radio" name="q6" value="5">
+                                <div class="rating-button">5</div>
+                            </label>
+                        </div>
+                        <div class="scale-label">Strongly<br>Agree</div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-text">7. I praise effort and strategy rather than just outcomes</div>
+                    <div class="rating-scale">
+                        <div class="scale-label">Strongly<br>Disagree</div>
+                        <div class="rating-options">
+                            <label class="rating-option">
+                                <input type="radio" name="q7" value="1" required>
+                                <div class="rating-button">1</div>
+                            </label>
+                            <label class="rating-option">
+                                <input type="radio" name="q7" value="2">
+                                <div class="rating-button">2</div>
+                            </label>
+                            <label class="rating-option">
+                                <input type="radio" name="q7" value="3">
+                                <div class="rating-button">3</div>
+                            </label>
+                            <label class="rating-option">
+                                <input type="radio" name="q7" value="4">
+                                <div class="rating-button">4</div>
+                            </label>
+                            <label class="rating-option">
+                                <input type="radio" name="q7" value="5">
+                                <div class="rating-button">5</div>
+                            </label>
+                        </div>
+                        <div class="scale-label">Strongly<br>Agree</div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-text">8. I often get angry when feedback is negative</div>
+                    <div class="rating-scale">
+                        <div class="scale-label">Strongly<br>Disagree</div>
+                        <div class="rating-options">
+                            <label class="rating-option">
+                                <input type="radio" name="q8" value="1" required>
+                                <div class="rating-button">1</div>
+                            </label>
+                            <label class="rating-option">
+                                <input type="radio" name="q8" value="2">
+                                <div class="rating-button">2</div>
+                            </label>
+                            <label class="rating-option">
+                                <input type="radio" name="q8" value="3">
+                                <div class="rating-button">3</div>
+                            </label>
+                            <label class="rating-option">
+                                <input type="radio" name="q8" value="4">
+                                <div class="rating-button">4</div>
+                            </label>
+                            <label class="rating-option">
+                                <input type="radio" name="q8" value="5">
+                                <div class="rating-button">5</div>
+                            </label>
+                        </div>
+                        <div class="scale-label">Strongly<br>Agree</div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-text">9. I encourage calculated risks and innovative thinking</div>
+                    <div class="rating-scale">
+                        <div class="scale-label">Strongly<br>Disagree</div>
+                        <div class="rating-options">
+                            <label class="rating-option">
+                                <input type="radio" name="q9" value="1" required>
+                                <div class="rating-button">1</div>
+                            </label>
+                            <label class="rating-option">
+                                <input type="radio" name="q9" value="2">
+                                <div class="rating-button">2</div>
+                            </label>
+                            <label class="rating-option">
+                                <input type="radio" name="q9" value="3">
+                                <div class="rating-button">3</div>
+                            </label>
+                            <label class="rating-option">
+                                <input type="radio" name="q9" value="4">
+                                <div class="rating-button">4</div>
+                            </label>
+                            <label class="rating-option">
+                                <input type="radio" name="q9" value="5">
+                                <div class="rating-button">5</div>
+                            </label>
+                        </div>
+                        <div class="scale-label">Strongly<br>Agree</div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-text">10. I view challenges as opportunities rather than threats</div>
+                    <div class="rating-scale">
+                        <div class="scale-label">Strongly<br>Disagree</div>
+                        <div class="rating-options">
+                            <label class="rating-option">
+                                <input type="radio" name="q10" value="1" required>
+                                <div class="rating-button">1</div>
+                            </label>
+                            <label class="rating-option">
+                                <input type="radio" name="q10" value="2">
+                                <div class="rating-button">2</div>
+                            </label>
+                            <label class="rating-option">
+                                <input type="radio" name="q10" value="3">
+                                <div class="rating-button">3</div>
+                            </label>
+                            <label class="rating-option">
+                                <input type="radio" name="q10" value="4">
+                                <div class="rating-button">4</div>
+                            </label>
+                            <label class="rating-option">
+                                <input type="radio" name="q10" value="5">
+                                <div class="rating-button">5</div>
+                            </label>
+                        </div>
+                        <div class="scale-label">Strongly<br>Agree</div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-text">11. All human beings are capable of learning</div>
+                    <div class="rating-scale">
+                        <div class="scale-label">Strongly<br>Disagree</div>
+                        <div class="rating-options">
+                            <label class="rating-option">
+                                <input type="radio" name="q11" value="1" required>
+                                <div class="rating-button">1</div>
+                            </label>
+                            <label class="rating-option">
+                                <input type="radio" name="q11" value="2">
+                                <div class="rating-button">2</div>
+                            </label>
+                            <label class="rating-option">
+                                <input type="radio" name="q11" value="3">
+                                <div class="rating-button">3</div>
+                            </label>
+                            <label class="rating-option">
+                                <input type="radio" name="q11" value="4">
+                                <div class="rating-button">4</div>
+                            </label>
+                            <label class="rating-option">
+                                <input type="radio" name="q11" value="5">
+                                <div class="rating-button">5</div>
+                            </label>
+                        </div>
+                        <div class="scale-label">Strongly<br>Agree</div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-text">12. I actively develop my team members through stretch assignments</div>
+                    <div class="rating-scale">
+                        <div class="scale-label">Strongly<br>Disagree</div>
+                        <div class="rating-options">
+                            <label class="rating-option">
+                                <input type="radio" name="q12" value="1" required>
+                                <div class="rating-button">1</div>
+                            </label>
+                            <label class="rating-option">
+                                <input type="radio" name="q12" value="2">
+                                <div class="rating-button">2</div>
+                            </label>
+                            <label class="rating-option">
+                                <input type="radio" name="q12" value="3">
+                                <div class="rating-button">3</div>
+                            </label>
+                            <label class="rating-option">
+                                <input type="radio" name="q12" value="4">
+                                <div class="rating-button">4</div>
+                            </label>
+                            <label class="rating-option">
+                                <input type="radio" name="q12" value="5">
+                                <div class="rating-button">5</div>
+                            </label>
+                        </div>
+                        <div class="scale-label">Strongly<br>Agree</div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-text">13. Some people are good and kind, others are not - people don't change</div>
+                    <div class="rating-scale">
+                        <div class="scale-label">Strongly<br>Disagree</div>
+                        <div class="rating-options">
+                            <label class="rating-option">
+                                <input type="radio" name="q13" value="1" required>
+                                <div class="rating-button">1</div>
+                            </label>
+                            <label class="rating-option">
+                                <input type="radio" name="q13" value="2">
+                                <div class="rating-button">2</div>
+                            </label>
+                            <label class="rating-option">
+                                <input type="radio" name="q13" value="3">
+                                <div class="rating-button">3</div>
+                            </label>
+                            <label class="rating-option">
+                                <input type="radio" name="q13" value="4">
+                                <div class="rating-button">4</div>
+                            </label>
+                            <label class="rating-option">
+                                <input type="radio" name="q13" value="5">
+                                <div class="rating-button">5</div>
+                            </label>
+                        </div>
+                        <div class="scale-label">Strongly<br>Agree</div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-text">14. I allocate time for learning and reflection in my schedule</div>
+                    <div class="rating-scale">
+                        <div class="scale-label">Strongly<br>Disagree</div>
+                        <div class="rating-options">
+                            <label class="rating-option">
+                                <input type="radio" name="q14" value="1" required>
+                                <div class="rating-button">1</div>
+                            </label>
+                            <label class="rating-option">
+                                <input type="radio" name="q14" value="2">
+                                <div class="rating-button">2</div>
+                            </label>
+                            <label class="rating-option">
+                                <input type="radio" name="q14" value="3">
+                                <div class="rating-button">3</div>
+                            </label>
+                            <label class="rating-option">
+                                <input type="radio" name="q14" value="4">
+                                <div class="rating-button">4</div>
+                            </label>
+                            <label class="rating-option">
+                                <input type="radio" name="q14" value="5">
+                                <div class="rating-button">5</div>
+                            </label>
+                        </div>
+                        <div class="scale-label">Strongly<br>Agree</div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-text">15. Truly smart people do not need to try hard</div>
+                    <div class="rating-scale">
+                        <div class="scale-label">Strongly<br>Disagree</div>
+                        <div class="rating-options">
+                            <label class="rating-option">
+                                <input type="radio" name="q15" value="1" required>
+                                <div class="rating-button">1</div>
+                            </label>
+                            <label class="rating-option">
+                                <input type="radio" name="q15" value="2">
+                                <div class="rating-button">2</div>
+                            </label>
+                            <label class="rating-option">
+                                <input type="radio" name="q15" value="3">
+                                <div class="rating-button">3</div>
+                            </label>
+                            <label class="rating-option">
+                                <input type="radio" name="q15" value="4">
+                                <div class="rating-button">4</div>
+                            </label>
+                            <label class="rating-option">
+                                <input type="radio" name="q15" value="5">
+                                <div class="rating-button">5</div>
+                            </label>
+                        </div>
+                        <div class="scale-label">Strongly<br>Agree</div>
+                    </div>
+                </div>
+
+                <div class="submit-section">
+                    <button type="submit" class="submit-btn" id="submitBtn">Calculate My Growth Mindset Score</button>
+                </div>
+            </form>
+        </div>
+
+        <div class="results" id="results">
+            <h2>Your Growth Mindset Assessment Results</h2>
+            <div class="score-display" id="scoreDisplay">0</div>
+            <div class="result-category" id="resultCategory"></div>
+            <div class="recommendations" id="recommendations"></div>
+            <div class="action-buttons">
+                <button class="action-btn download-btn" onclick="downloadResults()">Download PDF Report</button>
+                <button class="action-btn retake-btn" onclick="retakeAssessment()">Retake Assessment</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const form = document.getElementById('mindsetForm');
+        const assessmentForm = document.getElementById('assessmentForm');
+        const results = document.getElementById('results');
+        const progressFill = document.getElementById('progressFill');
+        
+        // Track progress
+        function updateProgress() {
+            const totalQuestions = 15;
+            const answeredQuestions = document.querySelectorAll('input[type="radio"]:checked').length;
+            const progress = (answeredQuestions / totalQuestions) * 100;
+            progressFill.style.width = progress + '%';
+        }
+        
+        // Add event listeners for progress tracking
+        document.querySelectorAll('input[type="radio"]').forEach(radio => {
+            radio.addEventListener('change', updateProgress);
+        });
+        
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            calculateResults();
+        });
+        
+        function calculateResults() {
+            const formData = new FormData(form);
+            let totalScore = 0;
+            
+            // Questions that need reverse scoring (negative statements): 1, 5, 8, 13, 15
+            const reverseScoreQuestions = [1, 5, 8, 13, 15];
+            
+            for (let i = 1; i <= 15; i++) {
+                let value = parseInt(formData.get(`q${i}`));
+                
+                if (reverseScoreQuestions.includes(i)) {
+                    // Reverse score: 5=1, 4=2, 3=3, 2=4, 1=5
+                    value = 6 - value;
+                }
+                
+                totalScore += value;
+            }
+            
+            displayResults(totalScore);
+        }
+        
+        function displayResults(score) {
+            const scoreDisplay = document.getElementById('scoreDisplay');
+            const resultCategory = document.getElementById('resultCategory');
+            const recommendations = document.getElementById('recommendations');
+            
+            scoreDisplay.textContent = score;
+            
+            let category, categoryColor, recommendationsList;
+            
+            if (score >= 65) {
+                category = "Strong Growth Mindset Leader";
+                categoryColor = "#27ae60";
+                recommendationsList = [
+                    "Lead cross-functional innovation projects",
+                    "Mentor other leaders in growth mindset practices",
+                    "Create organization-wide learning initiatives",
+                    "Document and share your growth journey",
+                    "Champion change initiatives within GCAA",
+                    "Develop growth mindset training programs"
+                ];
+            } else if (score >= 55) {
+                category = "Developing Growth Mindset";
+                categoryColor = "#3498db";
+                recommendationsList = [
+                    "Schedule weekly reflection time",
+                    "Join mastermind or peer learning group",
+                    "Take calculated risks in new business areas",
+                    "Practice vulnerable leadership sharing",
+                    "Seek stretch assignments in aviation projects",
+                    "Build cross-departmental collaboration skills"
+                ];
+            } else if (score >= 45) {
+                category = "Mixed Mindset";
+                categoryColor = "#f39c12";
+                recommendationsList = [
+                    "Keep a daily learning journal",
+                    "Work with an executive coach",
+                    "Start small experiments in safe areas",
+                    "Study growth mindset success stories",
+                    "Challenge fixed mindset triggers",
+                    "Practice the power of 'yet' in daily conversations"
+                ];
+            } else {
+                category = "Fixed Mindset Tendencies";
+                categoryColor = "#e74c3c";
+                recommendationsList = [
+                    "Read 'Mindset' by Carol Dweck",
+                    "Shadow growth-oriented leaders",
+                    "Start 'failure Friday' sharing sessions",
+                    "Set learning goals (not just performance goals)",
+                    "Practice feedback receiving techniques",
+                    "Join learning communities within the aviation sector"
+                ];
+            }
+            
+            resultCategory.textContent = category;
+            resultCategory.style.backgroundColor = categoryColor;
+            resultCategory.style.color = "white";
+            
+            recommendations.innerHTML = `
+                <h3>Recommended Actions for Your Development:</h3>
+                <ul>
+                    ${recommendationsList.map(item => `<li>${item}</li>`).join('')}
+                </ul>
+                <div style="margin-top: 20px; padding: 15px; background: #f8f9fa; border-radius: 8px; border-left: 4px solid ${categoryColor};">
+                    <strong>Additional Support:</strong>
+                    <ul style="margin-top: 10px;">
+                        <li>Monthly check-ins with your manager</li>
+                        <li>Customized reading list for aviation leaders</li>
+                        <li>Peer accountability partner assignment</li>
+                        <li>Progress tracking tools and resources</li>
+                    </ul>
+                </div>
+            `;
+            
+            // Store results for PDF generation
+            window.assessmentResults = {
+                score: score,
+                category: category,
+                recommendations: recommendationsList,
+                date: new Date().toLocaleDateString()
+            };
+            
+            // Hide form and show results
+            assessmentForm.style.display = 'none';
+            results.style.display = 'block';
+            
+            // Animate score display
+            animateScore(score);
+        }
+        
+        function animateScore(finalScore) {
+            const scoreDisplay = document.getElementById('scoreDisplay');
+            let currentScore = 0;
+            const increment = finalScore / 50;
+            
+            const animation = setInterval(() => {
+                currentScore += increment;
+                if (currentScore >= finalScore) {
+                    currentScore = finalScore;
+                    clearInterval(animation);
+                }
+                scoreDisplay.textContent = Math.round(currentScore);
+            }, 30);
+        }
+        
+        function downloadResults() {
+            const results = window.assessmentResults;
+            if (!results) return;
+            
+            // Create a simple text report for download
+            const reportContent = `
+GROWTH MINDSET LEADERSHIP ASSESSMENT REPORT
+==========================================
+General Civil Aviation Authority - UAE
+
+Assessment Date: ${results.date}
+Total Score: ${results.score}/75
+Category: ${results.category}
+
+RECOMMENDED DEVELOPMENT ACTIONS:
+${results.recommendations.map((item, index) => `${index + 1}. ${item}`).join('\n')}
+
+ADDITIONAL SUPPORT AVAILABLE:
+• Monthly check-ins with your manager
+• Customized reading list for aviation leaders  
+• Peer accountability partner assignment
+• Progress tracking tools and resources
+
+NEXT STEPS:
+1. Review your recommended actions above
+2. Schedule a follow-up discussion with your manager
+3. Begin implementing 1-2 actions immediately
+4. Retake this assessment in 3 months to track progress
+
+For questions or support, contact the GCAA Learning & Development team.
+
+Generated by GCAA Growth Mindset Assessment Tool
+            `;
+            
+            // Create and download the file
+            const blob = new Blob([reportContent], { type: 'text/plain' });
+            const url = window.URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = `GCAA_Growth_Mindset_Assessment_${results.date.replace(/\//g, '-')}.txt`;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            window.URL.revokeObjectURL(url);
+        }
+        
+        function retakeAssessment() {
+            // Reset form
+            form.reset();
+            updateProgress();
+            
+            // Show form and hide results
+            assessmentForm.style.display = 'block';
+            results.style.display = 'none';
+            
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+        
+        // Initialize progress on page load
+        updateProgress();
+    </script>
+</body>
+</html>
